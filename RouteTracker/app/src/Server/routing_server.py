@@ -3,23 +3,36 @@ import numpy as np
 from json import loads, dumps
 app = Flask(__name__)
 
-@app.route('/route', methods=['GET', 'POST'])
-def route():
+Coordinates = {'A': [0, 0], 'B': [0, 2], 'C': [0, 3], 'D': [0, 4], 'E': [0, 5],
+               'F': [1, 0], 'G': [1, 2], 'H': [1, 3], 'I': [1, 4], 'J': [1, 5],
+               'K': [2, 0], 'L': [2, 2], 'M': [2, 4], 'N': [3, 0], 'O': [3, 2],
+               'P': [3, 3], 'Q': [3, 4], 'R': [3, 5], 'S': [4, 0], 'T': [4, 1],
+               'U': [4, 2], 'W': [4, 3], 'X': [4, 5]}
+JSON = '{ "start": "C", "end": "O"}'
+path = []
+
+@app.route('/route/<s>/<e>', methods=['GET', 'POST'])
+def route(s,e):
     restuarant = [[0, 1, 0, 0, 0, 0],
                   [0, 1, 0, 0, 0, 0],
                   [0, 1, 0, 1, 0, 1],
                   [0, 1, 0, 0, 0, 0],
                   [0, 0, 0, 0, 1, 0]]
     cost = 1
-    start = readJSON(JSON)[0]
-    end = readJSON(JSON)[1]
+    start = read(s)
+    end = read(e)
     route = _AStarSearch(restuarant, cost, start, end)
     print('\n'.join([''.join(["{:" ">3d}".format(item) for item in row]) for row in route]), '\n')
     return jsonify({"path": path})
 
-@app.route('/', methods=['GET','POST'])
-def connect():
-    return 'connected'
+@app.route('/route', methods=['GET','POST'])
+def route_():
+    return jsonify({"path": path})
+
+@app.route('/reset', methods=['GET','POST'])
+def reset():
+    path.clear()
+    return jsonify({"path": path})
 
 class Node:
     def __init__(self, parent, position):
@@ -32,24 +45,11 @@ class Node:
     def __eq__(self, other):
         return self.position == other.position
 
-
-Coordinates = {'A': [0, 0], 'B': [0, 2], 'C': [0, 3], 'D': [0, 4], 'E': [0, 5],
-               'F': [1, 0], 'G': [1, 2], 'H': [1, 3], 'I': [1, 4], 'J': [1, 5],
-               'K': [2, 0], 'L': [2, 2], 'M': [2, 4], 'N': [3, 0], 'O': [3, 2],
-               'P': [3, 3], 'Q': [3, 4], 'R': [3, 5], 'S': [4, 0], 'T': [4, 1],
-               'U': [4, 2], 'W': [4, 3], 'X': [4, 5]}
-JSON = '{ "start": "C", "end": "O"}'
-path = []
-
-def readJSON(s):
-    data = loads(s)
+def read(s):
+    nav = s.upper()
     for i in Coordinates.keys():
-        if data["start"] == i:
-            st = Coordinates[i]
-    for j in Coordinates.keys():
-        if data["end"] == j:
-            en = Coordinates[j]
-    return st, en
+        if nav == i:
+            return Coordinates[i]
 
 def _AStarSearch(restuarant, cost, start, end):
     start_node = Node(None, tuple(start))

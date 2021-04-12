@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RouteTracker</string>
     <string name="_1">1</string>
-    <string name="_2" />
+    <string name="_2">2</string>
     <string name="_3">3</string>
     <string name="_4">4</string>
     <string name="_5">5</string>
@@ -18,4 +18,30 @@
     <string name="bar">bar</string>
     <string name="toilet">toilet</string>
     <string name="office">office</string>
+    <string name="clicked">clicked</string>
+    <string name="title_activity_login">Login</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="test">submitted</string>
+    <string name="back"><![CDATA[<- back]]></string>
+    <string name="book">BOOK</string>
+    <string name="done">Done</string>
+    <string name="_15">15</string>
+    <string name="_16">16</string>
+    <string name="_17">17</string>
+    <string name="_18">18</string>
+    <string name="_19">19</string>
+    <string name="_20">20</string>
+    <string name="_21">21</string>
+    <string name="staffroom">Staff room</string>
+    <string name="breakroom">Break room</string>
+    <string name="ft">FT</string>
+    <string name="dt">DT</string>
+    <string name="mt">MT</string>
 </resources>
